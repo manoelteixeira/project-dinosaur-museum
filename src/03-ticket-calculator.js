@@ -10,6 +10,9 @@
 const exampleTicketData = require("../data/tickets");
 // Do not change the line above.
 
+// Import Helper functions
+const { capitalizeWord } = require("./helper-functions");
+
 /**
  * calculateTicketPrice()
  * ---------------------
@@ -94,27 +97,6 @@ function calculateTicketPrice(ticketData, ticketInfo) {
   return total;
 }
 
-let ticketInfo = {
-  ticketType: "general",
-  entrantType: "adult",
-  extras: [],
-};
-console.log(calculateTicketPrice(exampleTicketData, ticketInfo)); //> 3000
-
-ticketInfo = {
-  ticketType: "membership",
-  entrantType: "child",
-  extras: ["movie"],
-};
-console.log(calculateTicketPrice(exampleTicketData, ticketInfo)); //> 2500
-
-ticketInfo = {
-  ticketType: "general",
-  entrantType: "kid", // Incorrect
-  extras: ["movie"],
-};
-console.log(calculateTicketPrice(exampleTicketData, ticketInfo)); //> "Entrant type 'kid' cannot be found."
-
 /**
  * purchaseTickets()
  * ---------------------
@@ -174,7 +156,49 @@ console.log(calculateTicketPrice(exampleTicketData, ticketInfo)); //> "Entrant t
     purchaseTickets(tickets, purchases);
     //> "Ticket type 'discount' cannot be found."
  */
-function purchaseTickets(ticketData, purchases) {}
+function purchaseTickets(ticketData, purchases) {
+  let total = 0;
+  const tickets = [];
+
+  for (const ticket of [...purchases]) {
+    let price = calculateTicketPrice(ticketData, ticket);
+    // If ticket is not valid, returns the message created by calculateTicketPrice
+    if (typeof price != "number") {
+      return price;
+    }
+    // convert price in cents to dollars
+    price = price / 100;
+
+    const { ticketType, entrantType, extras } = ticket;
+
+    const ticketDescription = ticketData[ticketType].description;
+    const entrant = capitalizeWord(entrantType);
+    const priceStr = price.toFixed(2);
+    let ticketInfo = "";
+
+    if (extras.length < 1) {
+      ticketInfo = `${entrant} ${ticketDescription}: \$${priceStr}`;
+    } else {
+      let extraDescriptions = [];
+      for (const extra of extras) {
+        const description = ticketData.extras[extra].description;
+        extraDescriptions.push(description);
+      }
+      extraDescriptions = extraDescriptions.join(", ");
+      ticketInfo = `${entrant} ${ticketDescription}: \$${priceStr} (${extraDescriptions})`;
+    }
+
+    total += price;
+    tickets.push(ticketInfo);
+  }
+  const welcomeMessage = "Thank you for visiting the Dinosaur Museum!";
+  const separator = "-------------------------------------------";
+  const allTickets = tickets.join("\n");
+
+  return `${welcomeMessage}\n${separator}\n${allTickets}\n${separator}\nTOTAL: \$${total.toFixed(
+    2
+  )}`;
+}
 
 // Do not change anything below this line.
 module.exports = {

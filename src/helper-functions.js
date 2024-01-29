@@ -21,6 +21,12 @@ function isInRange(value, range) {
   return false;
 }
 
+function capitalizeWord(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
+
+// Data manipulation
+
 function getDinossaur(dinosaurs, key, param) {
   const allowKeys = ["name", "dinosaurId"];
   if (allowKeys.includes(key)) {
@@ -48,6 +54,7 @@ function getRoom(rooms, key, param) {
 module.exports = {
   convertMeterToFeet,
   isInRange,
+  capitalizeWord,
   getDinossaur,
   getRoom,
 };
