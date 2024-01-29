@@ -11,7 +11,7 @@ const exampleDinosaurData = require("../data/dinosaurs");
 // Do not change the line above.
 
 // Import Helper functions
-const { convertMeterToFeet } = require("./helper-functions");
+const { convertMeterToFeet, isInRange } = require("./helper-functions");
 
 /**
  * getLongestDinosaur()
@@ -79,11 +79,13 @@ function getLongestDinosaur(dinosaurs) {
  *  //> "A dinosaur with an ID of 'incorrect-id' cannot be found."
  */
 function getDinosaurDescription(dinosaurs, id) {
-  const dinosaur = dinosaurs.find((dino) => dino.dinosaurId == id);
+  const dinosaur = dinosaurs.find((dino) => dino.dinosaurId == id) || null;
 
+  // Check if the Id provided is valid
   if (!dinosaur) {
     return `A dinosaur with an ID of '${id}' cannot be found.`;
   }
+
   const { name, pronunciation, period, mya, info } = dinosaur;
   const timePeriod = mya.length == 1 ? mya[0] : mya[mya.length - 1];
 
@@ -124,7 +126,26 @@ function getDinosaurDescription(dinosaurs, id) {
  *  getDinosaursAliveMya(dinosaurs, 65, "unknown-key");
  *  //> ["WHQcpcOj0G"]
  */
-function getDinosaursAliveMya(dinosaurs, mya, key) {}
+function getDinosaursAliveMya(dinosaurs, mya, key) {
+  let dinosaurArr = dinosaurs.filter((dino) => {
+    return isInRange(mya, dino.mya);
+  });
+
+  // Check if there is any Dinosaur in the selected mya
+  if (dinosaurArr.length == 0) return [];
+
+  // Get Keys from the dinosaur object
+  const dinosaurKeys = Object.keys(dinosaurArr[0]);
+
+  // Check if dinosaur has the given key and generate the appropriate array
+  if (dinosaurKeys.includes(key)) {
+    dinosaurArr = dinosaurArr.map((dino) => dino[key]);
+  } else {
+    dinosaurArr = dinosaurArr.map((dino) => dino.dinosaurId);
+  }
+
+  return dinosaurArr;
+}
 
 module.exports = {
   getLongestDinosaur,
