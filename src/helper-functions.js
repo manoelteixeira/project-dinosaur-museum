@@ -21,7 +21,33 @@ function isInRange(value, range) {
   return false;
 }
 
+function getDinossaur(dinosaurs, key, param) {
+  const allowKeys = ["name", "dinosaurId"];
+  if (allowKeys.includes(key)) {
+    const dinosaur = dinosaurs.find((dino) => dino[key] == param);
+    if (!dinosaur) {
+      return null;
+    }
+    return dinosaur;
+  }
+  return ` ${key} is not a valid key.`;
+}
+
+function getRoom(rooms, key, param) {
+  const allowKeys = ["name", "roomId"];
+  if (allowKeys.includes(key)) {
+    const room = rooms.find((room) => room[key] == param);
+    if (!room) {
+      return null;
+    }
+    return room;
+  }
+  return ` ${key} is not a valid key.`;
+}
+
 module.exports = {
   convertMeterToFeet,
   isInRange,
+  getDinossaur,
+  getRoom,
 };

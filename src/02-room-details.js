@@ -10,6 +10,8 @@ const exampleDinosaurData = require("../data/dinosaurs");
 const exampleRoomData = require("../data/rooms");
 // Do not change the lines above.
 
+const { getRoom } = require("./helper-functions");
+
 /**
  * getRoomByDinosaurName()
  * ---------------------
@@ -71,7 +73,22 @@ function getRoomByDinosaurName(dinosaurs, rooms, dinosaurName) {
       "Kit Hopkins Education Wing"
     ]
  */
-function getConnectedRoomNamesById(rooms, id) {}
+function getConnectedRoomNamesById(rooms, id) {
+  // Check if room with given id exists
+  const selectedRoom = rooms.find((room) => room.roomId == id);
+  if (!selectedRoom) {
+    return `Room with ID of '${id}' could not be found.`;
+  }
+  const connectedRooms = [];
+  for (const roomId of selectedRoom.connectsTo) {
+    const room = getRoom(rooms, "roomId", roomId);
+    if (!room) {
+      return `Room with ID of '${roomId}' could not be found.`;
+    }
+    connectedRooms.push(room.name);
+  }
+  return connectedRooms;
+}
 
 module.exports = {
   getRoomByDinosaurName,
