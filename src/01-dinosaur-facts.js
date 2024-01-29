@@ -10,6 +10,9 @@
 const exampleDinosaurData = require("../data/dinosaurs");
 // Do not change the line above.
 
+// Import Helper functions
+const { convertMeterToFeet } = require("./helper-functions");
+
 /**
  * getLongestDinosaur()
  * ---------------------
@@ -26,7 +29,32 @@ const exampleDinosaurData = require("../data/dinosaurs");
  *  getLongestDinosaur(dinosaurs);
  *  //> { Brachiosaurus: 98.43 }
  */
-function getLongestDinosaur(dinosaurs) {}
+function getLongestDinosaur(dinosaurs) {
+  // Check if the input is not empty
+  if (dinosaurs.length == 0) {
+    return {};
+  }
+
+  // set longest dinosaur as the first one in the dinosaurs array.
+  let longestDinosaur = dinosaurs[0];
+
+  // Look for a longer dinosaur in the array
+  for (let idx = 1; idx < dinosaurs.length; idx++) {
+    const dinosaur = dinosaurs[idx];
+    if (dinosaur.lengthInMeters > longestDinosaur.lengthInMeters) {
+      longestDinosaur = dinosaur;
+    }
+  }
+
+  // Get name and length of the longest dinosaur found.
+  const { name, lengthInMeters } = longestDinosaur;
+
+  // Setup output.
+  const output = {};
+  output[name] = convertMeterToFeet(lengthInMeters);
+
+  return output;
+}
 
 /**
  * getDinosaurDescription()
