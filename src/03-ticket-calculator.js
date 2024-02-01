@@ -11,7 +11,7 @@ const exampleTicketData = require("../data/tickets");
 // Do not change the line above.
 
 // Import Helper functions
-const { capitalizeWord } = require("./helper-functions");
+const { capitalizeWord, getPriceInCents } = require("./helper-functions");
 
 /**
  * calculateTicketPrice()
@@ -66,32 +66,31 @@ const { capitalizeWord } = require("./helper-functions");
 function calculateTicketPrice(ticketData, ticketInfo) {
   const { ticketType, entrantType, extras } = ticketInfo;
   const ticket = ticketData[ticketType];
+  let total = 0;
+
   // check if Ticket type is valid
   if (!ticket) {
     return `Ticket type '${ticketType}' cannot be found.`;
   }
   // Check if entrant type is valid
-  const ticketPrice = ticket.priceInCents[entrantType];
+  const ticketPrice = getPriceInCents(ticket, entrantType);
   if (!ticketPrice) {
     return `Entrant type '${entrantType}' cannot be found.`;
   }
-
+  total += ticketPrice;
   // Check if any extra was selected
   if (extras.length < 1) {
-    return ticketPrice;
+    return total;
   }
 
-  let total = ticketPrice;
-
+  // Add the exta options to total
   for (const extra of extras) {
     const selectedExtra = ticketData.extras[extra];
 
     if (!selectedExtra) {
       return `Extra type '${extra}' cannot be found.`;
     }
-
-    const extraPrice = selectedExtra.priceInCents[entrantType];
-    total += extraPrice;
+    total += getPriceInCents(selectedExtra, entrantType) || 0;
   }
 
   return total;
@@ -162,10 +161,12 @@ function purchaseTickets(ticketData, purchases) {
 
   for (const ticket of [...purchases]) {
     let price = calculateTicketPrice(ticketData, ticket);
+
     // If ticket is not valid, returns the message created by calculateTicketPrice
     if (typeof price != "number") {
       return price;
     }
+
     // convert price in cents to dollars
     price = price / 100;
 

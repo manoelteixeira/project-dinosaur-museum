@@ -44,15 +44,14 @@ function capitalizeWord(word) {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
 }
 
-// Data manipulation
-
 /**
+ * Return a dinosaur with the given dinosaurId or name.
  *
- * @param {*} dinosaurs - An array of dinosaur objects. See the `data/dinosaurs.js` file for an example
+ * @param {Object} dinosaurs - An array of dinosaur objects. See the `data/dinosaurs.js` file for an example
  *                        of the input.
- * @param {*} key - A string indicating if param is "name" or "dinosaurId"]
- * @param {*} param - A string containg either a name or an Id
- * @returns
+ * @param {String} key - A string indicating if param is "name" or "dinosaurId"
+ * @param {String} param - A string containg either a name or an Id
+ * @returns - A dinosaut object if found, otherwise null
  */
 function getDinossaur(dinosaurs, key, param) {
   const allowKeys = ["name", "dinosaurId"];
@@ -66,6 +65,14 @@ function getDinossaur(dinosaurs, key, param) {
   return `${key} is not a valid key.`;
 }
 
+/**
+ * Return a room with the given roomId or name.
+ * @param {Object} rooms - An array of room objects. See the `data/rooms.js` file for an example
+ *                    of the input.
+ * @param {String} key - A string indicating if param is "name" or "roomId"
+ * @param {String} param - A string containg either a name or an Id
+ * @returns - A room object if found, otherwise null
+ */
 function getRoom(rooms, key, param) {
   const allowKeys = ["name", "roomId"];
   if (allowKeys.includes(key)) {
@@ -78,10 +85,21 @@ function getRoom(rooms, key, param) {
   return `${key} is not a valid key.`;
 }
 
+/**
+ * Return the price in cents for a given ticket type or extra activity for a given entrant type
+ * @param {Object} activity - An object representing either a ticket type or an exrta activity
+ * @param {String} entrantType - A string representing the entrant type. Eg. child, adult, senior, etc.
+ * @returns {Number} - The price for the given valid entrant type, otherwise return null
+ */
+function getPriceInCents(activity, entrantType) {
+  return activity.priceInCents[entrantType] || null;
+}
+
 module.exports = {
   convertMeterToFeet,
   isInRange,
   capitalizeWord,
   getDinossaur,
   getRoom,
+  getPriceInCents,
 };
