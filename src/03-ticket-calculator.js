@@ -194,10 +194,8 @@ function purchaseTickets(ticketData, purchases) {
   const welcomeMessage = "Thank you for visiting the Dinosaur Museum!";
   const separator = "-------------------------------------------";
   const allTickets = tickets.join("\n");
-
-  return `${welcomeMessage}\n${separator}\n${allTickets}\n${separator}\nTOTAL: \$${total.toFixed(
-    2
-  )}`;
+  const totalStr = total.toFixed(2);
+  return `${welcomeMessage}\n${separator}\n${allTickets}\n${separator}\nTOTAL: \$${totalStr}`;
 }
 
 // Do not change anything below this line.

@@ -2,31 +2,58 @@
  * This file contains all the helper functions for this project.
  */
 
+/**
+ * Convert Meters to Feets
+ * @param {Number} value - A Number, value in meters.
+ * @returns - A Number, the restult of the conversion from meters to Feets
+ */
 function convertMeterToFeet(value) {
   return value * 3.281;
 }
 
-function isInRange(value, range) {
+/**
+ * Check if a target Number is in range.
+ * If rage contains only one Number check if target is equial or 1 less
+ *
+ * @param {Number} target - A Number
+ * @param {[Number]} range - An array containing 1 or 2 values
+ * @returns {bool}
+ */
+function isInRange(target, range) {
   if (range.length == 1) {
     const rangeValue = range[0];
-
-    if (rangeValue == value || value == rangeValue - 1) {
+    if (rangeValue == target || target == rangeValue - 1) {
       return true;
     }
   }
-  const [end, start] = range;
-  if (value <= end && value >= start) {
+
+  const [start, end] = range[0] > range[1] ? range.reverse() : range;
+
+  if (target <= end && target >= start) {
     return true;
   }
   return false;
 }
 
+/**
+ * Capitalize a ginve string
+ * @param {String} word - String to be capitalized
+ * @returns {String} - Capitalized string
+ */
 function capitalizeWord(word) {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
 }
 
 // Data manipulation
 
+/**
+ *
+ * @param {*} dinosaurs - An array of dinosaur objects. See the `data/dinosaurs.js` file for an example
+ *                        of the input.
+ * @param {*} key - A string indicating if param is "name" or "dinosaurId"]
+ * @param {*} param - A string containg either a name or an Id
+ * @returns
+ */
 function getDinossaur(dinosaurs, key, param) {
   const allowKeys = ["name", "dinosaurId"];
   if (allowKeys.includes(key)) {
@@ -36,7 +63,7 @@ function getDinossaur(dinosaurs, key, param) {
     }
     return dinosaur;
   }
-  return ` ${key} is not a valid key.`;
+  return `${key} is not a valid key.`;
 }
 
 function getRoom(rooms, key, param) {
@@ -48,7 +75,7 @@ function getRoom(rooms, key, param) {
     }
     return room;
   }
-  return ` ${key} is not a valid key.`;
+  return `${key} is not a valid key.`;
 }
 
 module.exports = {

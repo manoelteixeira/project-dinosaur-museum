@@ -60,9 +60,7 @@ function getLongestDinosaur(dinosaurs) {
  * getDinosaurDescription()
  * ---------------------
  * Returns a formatted description of a dinosaur. If the dinosaur cannot be found, returns an error message.
- *
  * NOTE: Carefully view the test output and example below to see how the returned string should be formatted.
- *
  * NOTE: The `\n` represents a new line in text.
  *
  * @param {Object[]} dinosaurs - An array of dinosaur objects. See the `data/dinosaurs.js` file for an example
@@ -72,8 +70,8 @@ function getLongestDinosaur(dinosaurs) {
  *
  * EXAMPLE:
  *  getDinosaurDescription(dinosaurs, "U9vuZmgKwUr");
- *  //> "Xenoceratops (ZEE-no-SEH-ruh-tops)\nXenoceratops had horns and a bony frill with elaborate ornamentation of
- *      projections, knobs, and spikes. It lived in the Early Cretaceous period, over 77.5 million years ago."
+ *  //> "Xenoceratops (ZEE-no-SEH-ruh-tops)\n
+ *       Xenoceratops had horns and a bony frill with elaborate ornamentation of projections, knobs, and spikes. It lived in the Early Cretaceous period, over 77.5 million years ago."
  *
  *  getDinosaurDescription(dinosaurs, "incorrect-id");
  *  //> "A dinosaur with an ID of 'incorrect-id' cannot be found."
