@@ -11,7 +11,11 @@ const exampleDinosaurData = require("../data/dinosaurs");
 // Do not change the line above.
 
 // Import Helper functions
-const { convertMeterToFeet, isInRange } = require("./helper-functions");
+const {
+  convertMeterToFeet,
+  isInRange,
+  getDinosaur,
+} = require("./helper-functions");
 
 /**
  * getLongestDinosaur()
@@ -77,7 +81,7 @@ function getLongestDinosaur(dinosaurs) {
  *  //> "A dinosaur with an ID of 'incorrect-id' cannot be found."
  */
 function getDinosaurDescription(dinosaurs, id) {
-  const dinosaur = dinosaurs.find((dino) => dino.dinosaurId == id) || null;
+  const dinosaur = getDinosaur(dinosaurs, "dinosaurId", id);
 
   // Check if the Id provided is valid
   if (!dinosaur) {

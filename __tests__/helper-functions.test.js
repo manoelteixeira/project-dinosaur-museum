@@ -6,7 +6,7 @@ const {
   convertMeterToFeet,
   isInRange,
   capitalizeWord,
-  getDinossaur,
+  getDinosaur,
   getRoom,
   getPriceInCents,
 } = require("../src/helper-functions");
@@ -61,7 +61,7 @@ describe("capitalizeWord()", () => {
   });
 });
 
-describe("getDinossaur()", () => {
+describe("getDinosaur()", () => {
   const testDino = {
     dinosaurId: "WHQcpcOj0G",
     name: "Dracorex",
@@ -77,31 +77,27 @@ describe("getDinossaur()", () => {
   test("should return a message if the key provided is invalid", () => {
     const testKey = "Invalid";
 
-    const actual = getDinossaur(dinosaurData, testKey, testDino.name);
+    const actual = getDinosaur(dinosaurData, testKey, testDino.name);
     expect(actual).toEqual(`${testKey} is not a valid key.`);
   });
 
   test('should return a dinosaur object when key is equal to "name" and param is a valid dinosaur name.', () => {
-    const actual = getDinossaur(dinosaurData, "name", testDino.name);
+    const actual = getDinosaur(dinosaurData, "name", testDino.name);
 
     expect(actual).toEqual(testDino);
     expect(actual).not.toBe(null);
   });
 
   test('should return a dinosaur object when key is equal to "dinosaurId" and param is a valid dinosaur id.', () => {
-    const actual = getDinossaur(
-      dinosaurData,
-      "dinosaurId",
-      testDino.dinosaurId
-    );
+    const actual = getDinosaur(dinosaurData, "dinosaurId", testDino.dinosaurId);
 
     expect(actual).toEqual(testDino);
     expect(actual).not.toBe(null);
   });
 
   test("should return null when key is valid and param is invalid.", () => {
-    const restult1 = getDinossaur(dinosaurData, "name", "InvalidDinoName");
-    const restult2 = getDinossaur(dinosaurData, "dinosaurId", "InvalidDinoId");
+    const restult1 = getDinosaur(dinosaurData, "name", "InvalidDinoName");
+    const restult2 = getDinosaur(dinosaurData, "dinosaurId", "InvalidDinoId");
 
     expect(restult1).toBe(null);
     expect(restult2).toBe(null);

@@ -53,7 +53,7 @@ function capitalizeWord(word) {
  * @param {String} param - A string containg either a name or an Id
  * @returns - A dinosaut object if found, otherwise null
  */
-function getDinossaur(dinosaurs, key, param) {
+function getDinosaur(dinosaurs, key, param) {
   const allowKeys = ["name", "dinosaurId"];
   if (allowKeys.includes(key)) {
     const dinosaur = dinosaurs.find((dino) => dino[key] == param);
@@ -99,7 +99,7 @@ module.exports = {
   convertMeterToFeet,
   isInRange,
   capitalizeWord,
-  getDinossaur,
+  getDinosaur,
   getRoom,
   getPriceInCents,
 };
