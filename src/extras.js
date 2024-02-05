@@ -21,6 +21,18 @@ function getDinosaurByPeriod(dinosaurs, period) {
   return dinosaurs.filter((dino) => dino.period.includes(period));
 }
 
+/**
+ *
+ * @param {[Object]} dinosaurs - An array of dinosaur objects. See the `data/dinosaurs.js` file for an example of
+ *                               the input.
+ * @param {string} diet - String containing the diet. Example: "Carnivorous"
+ * @returns
+ */
+function getDinosaurByDiet(dinosaurs, diet) {
+  return dinosaurs.filter((dino) => dino.diet == diet);
+}
+
 module.exports = {
   getDinosaurByPeriod,
+  getDinosaurByDiet,
 };

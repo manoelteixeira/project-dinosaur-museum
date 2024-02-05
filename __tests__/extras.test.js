@@ -1,6 +1,6 @@
 const dinosaurData = require("../data/dinosaurs");
 
-const { getDinosaurByPeriod } = require("../src/extras");
+const { getDinosaurByPeriod, getDinosaurByDiet } = require("../src/extras");
 
 describe("getDinosaurByPeriod()", () => {
   test('should return an error message when period is either "early" or "late"', () => {
@@ -33,5 +33,21 @@ describe("getDinosaurByPeriod()", () => {
     const actual = getDinosaurByPeriod(dinosaurData, "Paleocene");
 
     expect(actual).toEqual([]);
+  });
+});
+
+describe("getDinosaurByDiet()", () => {
+  test("should return an empty array when given an invalid diet", () => {
+    const actual = getDinosaurByDiet(dinosaurData, "invalidDiet");
+
+    expect(actual).toEqual([]);
+  });
+
+  test("should return an array containing dinosaurs object with the given diet", () => {
+    const testDiet = "carnivorous";
+    const actual = getDinosaurByDiet(dinosaurData, testDiet);
+    actual.forEach((dino) => {
+      expect(dino.diet).toBe(testDiet);
+    });
   });
 });
